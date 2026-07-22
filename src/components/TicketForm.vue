@@ -2,9 +2,9 @@
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 
-// Recebendo props do App.vue[cite: 4]
+// Recebendo props do App.vue
 const props = defineProps({
-  ticketId: { type: [Number, String, null], default: null },
+  ticketId: { type: [Number, String], default: null },
   perfil: { type: String, default: "cliente" },
   usuario: { type: String, default: "" },
 });
@@ -20,10 +20,10 @@ const loading = ref(false);
 const sucesso = ref(false);
 const erro = ref("");
 
-// Computed para saber se estamos editando ou criando[cite: 4]
+// Computed para saber se estamos editando ou criando
 const isEditing = computed(() => !!props.ticketId);
 
-// Busca os dados se for uma visualização/edição[cite: 4]
+// Busca os dados se for uma visualização/edição
 onMounted(async () => {
   if (isEditing.value) {
     loading.value = true;
@@ -52,7 +52,7 @@ const handleSubmit = async () => {
 
   try {
     if (isEditing.value && props.perfil === "agente") {
-      // Agente atualizando o chamado[cite: 4]
+      // Agente atualizando o chamado
       await axios.put(`http://localhost/api/tickets/${props.ticketId}`, {
         titulo: titulo.value, // Mantém o original
         descricao_cliente: descricao_cliente.value, // Mantém o original
@@ -61,7 +61,7 @@ const handleSubmit = async () => {
       });
       sucesso.value = true;
     } else if (!isEditing.value) {
-      // Cliente abrindo novo chamado[cite: 4]
+      // Cliente abrindo novo chamado
       await axios.post("http://localhost/api/tickets", {
         titulo: titulo.value,
         descricao_cliente: descricao_cliente.value,
@@ -82,7 +82,7 @@ const handleSubmit = async () => {
 
 <template>
   <div
-    class="max-w-2xl mx-auto my-10 bg-white dark:bg-[#16171d] border border-[#e5e4e7] dark:border-[#2e303a] rounded-xl shadow-lg overflow-hidden transition-colors duration-300 relative"
+    class="max-w-1xl mx-auto dark:bg-[#16171d] shadow-lg overflow-hidden transition-colors duration-300 relative"
   >
     <!-- Botão Voltar -->
     <button
@@ -134,7 +134,7 @@ const handleSubmit = async () => {
             required
             placeholder="Ex: Preciso de ajuda com o módulo..."
             :class="[
-              'w-full px-4 py-3 rounded-lg border border-[#e5e4e7] dark:border-[#2e303a] bg-transparent text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-[#aa3bff] transition-colors text-sm',
+              'w-full px-4 py-3 rounded-lg border border-[#e5e4e7] dark:border-[#2e303a] bg-transparent text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-red-500 transition-colors text-sm',
               isEditing
                 ? 'opacity-70 bg-gray-50 dark:bg-[#1a1b22] cursor-not-allowed'
                 : '',
@@ -155,7 +155,7 @@ const handleSubmit = async () => {
             required
             placeholder="Descreva os passos para reproduzir o erro..."
             :class="[
-              'w-full px-4 py-3 rounded-lg border border-[#e5e4e7] dark:border-[#2e303a] bg-transparent text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-[#aa3bff] transition-colors text-sm resize-none',
+              'w-full px-4 py-3 rounded-lg border border-[#e5e4e7] dark:border-[#2e303a] bg-transparent text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-red-500 transition-colors text-sm resize-none',
               isEditing
                 ? 'opacity-70 bg-gray-50 dark:bg-[#1a1b22] cursor-not-allowed'
                 : '',
@@ -170,7 +170,7 @@ const handleSubmit = async () => {
           >
             <div class="mb-5">
               <label
-                class="block text-xs font-mono uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-2 flex items-center gap-2"
+                class="block text-xs font-mono uppercase tracking-wider text-red-600 dark:text-red-400 mb-2 flex items-center gap-2"
               >
                 <svg
                   class="w-4 h-4"
@@ -191,7 +191,7 @@ const handleSubmit = async () => {
                 v-model="rascunho_ia"
                 rows="5"
                 placeholder="A IA ainda não gerou uma resposta para este chamado..."
-                class="w-full px-4 py-3 rounded-lg border border-purple-200 dark:border-purple-900/50 bg-purple-50/30 dark:bg-purple-900/10 text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-[#aa3bff] transition-colors text-sm resize-none"
+                class="w-full px-4 py-3 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50/30 dark:bg-red-900/10 text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-red-500 transition-colors text-sm resize-none"
               ></textarea>
             </div>
 
@@ -202,7 +202,7 @@ const handleSubmit = async () => {
               >
               <select
                 v-model="status"
-                class="w-full px-4 py-3 rounded-lg border border-[#e5e4e7] dark:border-[#2e303a] bg-white dark:bg-[#1f2028] text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-[#aa3bff] transition-colors text-sm"
+                class="w-full px-4 py-3 rounded-lg border border-[#e5e4e7] dark:border-[#2e303a] bg-white dark:bg-[#1f2028] text-[#08060d] dark:text-[#f3f4f6] focus:outline-none focus:border-red-500 transition-colors text-sm"
               >
                 <option value="aberto">Aberto</option>
                 <option value="resolvido">Resolvido</option>
@@ -219,7 +219,7 @@ const handleSubmit = async () => {
           <button
             type="submit"
             :disabled="loading"
-            class="w-full py-3.5 px-4 bg-[#aa3bff] hover:bg-[#962fe8] text-white font-medium text-sm rounded-lg transition-all duration-200 shadow-md cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
+            class="w-full py-3.5 px-4 bg-red-600 hover:bg-red-700 text-white font-medium text-sm rounded-lg transition-all duration-200 shadow-md cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
           >
             <span v-if="loading">Processando...</span>
             <span v-else>{{
