@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-// Recebendo o perfil do App.vue[cite: 5]
+// Recebendo o perfil do App.vue
 const props = defineProps({
   perfil: {
     type: String,
@@ -10,7 +10,7 @@ const props = defineProps({
   },
 });
 
-// Definindo o evento de clique para abrir o chamado[cite: 5]
+// Definindo o evento de clique para abrir o chamado
 const emit = defineEmits(["abrir-chamado"]);
 
 const tickets = ref([]);
@@ -97,7 +97,7 @@ onMounted(() => {
             <th class="px-6 py-4 font-medium">ID</th>
             <th class="px-6 py-4 font-medium">Título & Descrição</th>
             <th class="px-6 py-4 font-medium">Status</th>
-            <!-- Coluna exclusiva do Agente[cite: 5] -->
+            <!-- Coluna exclusiva do Agente -->
             <th
               v-if="props.perfil === 'agente'"
               class="px-6 py-4 font-medium w-1/3"
@@ -125,7 +125,7 @@ onMounted(() => {
             </td>
           </tr>
 
-          <!-- Linha clicável emitindo o ID[cite: 5] -->
+          <!-- Linha clicável emitindo o ID -->
           <tr
             v-for="ticket in tickets"
             :key="ticket.id"
@@ -167,7 +167,7 @@ onMounted(() => {
               </span>
             </td>
 
-            <!-- Célula exclusiva do Agente[cite: 5] -->
+            <!-- Célula exclusiva do Agente -->
             <td v-if="props.perfil === 'agente'" class="px-6 py-4">
               <div
                 class="text-xs text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-[#1a1b22] p-3 rounded border border-gray-100 dark:border-gray-800 min-h-[60px] flex items-center"
