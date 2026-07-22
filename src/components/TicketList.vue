@@ -39,7 +39,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="dark:border-[#2e303a] shadow-sm overflow-hidden">
+  <div
+    class="bg-white dark:bg-[#16171d] border border-[#e5e4e7] dark:border-[#2e303a] rounded-xl shadow-sm overflow-hidden"
+  >
     <div
       class="p-6 border-b border-[#e5e4e7] dark:border-[#2e303a] flex justify-between items-center bg-gray-50/50 dark:bg-transparent"
     >
