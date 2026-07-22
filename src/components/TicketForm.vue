@@ -64,7 +64,6 @@ onMounted(() => {
 });
 
 // Pede pra IA (re)gerar o rascunho a partir da descrição do cliente.
-// Endpoint assumido: POST /api/tickets/:id/regerar-ia -> { rascunho_ia }
 const regerarComIA = async () => {
   if (
     rascunhoFoiEditado.value &&
@@ -76,18 +75,25 @@ const regerarComIA = async () => {
   regerando.value = true;
   erro.value = "";
   sucesso.value = "";
+
   try {
-    const response = await axios.post(
-      `http://localhost/api/tickets/${props.ticketId}/re-gerar-ia`,
+    // Rota correta gerada pelo apiSingleton creatable()
+    await axios.post(
+      `http://localhost/api/tickets/${props.ticketId}/rascunho-ia`,
     );
-    const novoRascunho =
-      response.data?.rascunho_ia ?? response.data?.data?.rascunho_ia ?? "";
-    rascunho_ia.value = novoRascunho;
-    rascunhoOriginal.value = novoRascunho;
+
+    sucesso.value =
+      "Solicitação enviada! A IA (via n8n) está gerando o novo rascunho...";
+
+    // Opcional: Se você quiser que a tela busque o texto atualizado após alguns segundos,
+    // pode chamar carregarTicket() com um setTimeout ou manter o polling que estruturamos antes.
+    setTimeout(() => {
+      carregarTicket();
+      regerando.value = false;
+    }, 4000);
   } catch (err) {
-    erro.value = "Não foi possível gerar uma nova sugestão da IA agora.";
+    erro.value = "Não foi possível disparar a geração da IA agora.";
     console.error(err);
-  } finally {
     regerando.value = false;
   }
 };
