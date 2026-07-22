@@ -54,7 +54,7 @@ onMounted(() => {
           }}
         </h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          Acompanhe o status e as respostas dos tickets abertos.
+          Acompanhe o status e as respostas dos chamados abertos.
         </p>
       </div>
 

@@ -9,16 +9,16 @@ const menuAberto = ref(true);
 const usuarioLogado = ref("cliente@revenda.com.br");
 const ticketSelecionado = ref(null);
 
-// NOVO: Controle de Perfil (Mock)
+// Controle de Perfil (Mock)
 const perfilAtual = ref("cliente"); // 'cliente' ou 'agente'
 
 const alternarPerfil = () => {
   perfilAtual.value = perfilAtual.value === "cliente" ? "agente" : "cliente";
-  // Opcional: Se quiser mudar o email fake dependendo do perfil
+
   usuarioLogado.value =
     perfilAtual.value === "cliente"
-      ? "cliente@revenda.com.br"
-      : "suporte@revenda.com.br";
+      ? "cliente@mail.com.br"
+      : "suporte@mail.com.br";
 };
 
 // Funções de navegação
